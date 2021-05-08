@@ -8,4 +8,5 @@ const app = express_1.default();
 app.get('/', function (req, res, next) {
     res.send('Hello World');
 });
+//mongoose.connect();
 app.listen(3000);
