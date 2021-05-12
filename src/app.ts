@@ -1,15 +1,27 @@
 import express from 'express';
-import {mongoConnect} from './util/database';
-import {Message} from './models/message';
+import User from './models/user';
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+import messageRoutes from "./routes/message";
 
+dotenv.config();
 const app = express();
 
-app.get('/messages', function(req, res, next) {
-    res.send('Hello World');
+app.use(express.json());
+app.use((req, res, next) => {
+    res.setHeader('Access-Controll-Allow-Origin', '*');
+    res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Controll-Allow-Headers', 'Content-Type, Authorization');
+    next();
 });
 
-mongoConnect(() => {
-    const message = new Message('hello world!');
-    message.save();
-    app.listen(3000);
-});
+app.use('/messages', messageRoutes);
+
+mongoose
+    .connect(process.env.MONGO_URI as string, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(result => {
+        app.listen(process.env.PORT, () => {
+            console.log(`Started: http://localhost:${process.env.PORT}`);
+        });
+    })
+    .catch(err => console.log(err));
