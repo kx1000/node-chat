@@ -26,12 +26,14 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv = __importStar(require("dotenv"));
 const message_1 = __importDefault(require("./routes/message"));
+const helmet_1 = __importDefault(require("helmet"));
 dotenv.config();
 const app = express_1.default();
 app.use(express_1.default.json());
+app.use(helmet_1.default());
 app.use((req, res, next) => {
     res.setHeader('Access-Controll-Allow-Origin', '*');
-    res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Controll-Allow-Headers', 'Content-Type, Authorization');
     next();
 });

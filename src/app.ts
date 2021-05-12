@@ -3,11 +3,14 @@ import User from './models/user';
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import messageRoutes from "./routes/message";
+import helmet from 'helmet';
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
+
+app.use(helmet());
 app.use((req, res, next) => {
     res.setHeader('Access-Controll-Allow-Origin', '*');
     res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
