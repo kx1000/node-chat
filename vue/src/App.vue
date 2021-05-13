@@ -27,10 +27,10 @@ export default {
   methods: {
     async signIn() {
       try {
-        const googleUser = await this.$gAuth.signIn()
+        const googleUser = await this.$gAuth.signIn();
         const token = googleUser.getAuthResponse().id_token;
         console.log(token);
-        userApi.loginByToken(token);
+        await userApi.loginByToken(token);
         // todo request to node with token
       } catch (err) {
         console.log('Error: ', err);

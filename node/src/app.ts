@@ -5,6 +5,7 @@ import messageRoutes from "./routes/message";
 import userRoutes from "./routes/user";
 import helmet from 'helmet';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const app = express();
@@ -12,7 +13,11 @@ const app = express();
 app.use(express.json());
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONT_URL,
+    credentials: true,
+}));
+app.use(cookieParser());
 
 app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);

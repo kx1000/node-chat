@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import GAuth from 'vue-google-oauth2'
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
 const gauthOption = {
-  clientId: '327574668093-73i9v7amsb599gnqhoi97erkhpf6ea8p.apps.googleusercontent.com',
+  clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
   scope: 'profile email',
   prompt: 'select_account'
 }
