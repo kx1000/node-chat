@@ -1,9 +1,10 @@
 import express from 'express';
-import User from './models/user';
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import messageRoutes from "./routes/message";
+import userRoutes from "./routes/user";
 import helmet from 'helmet';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -11,13 +12,9 @@ const app = express();
 app.use(express.json());
 
 app.use(helmet());
-app.use((req, res, next) => {
-    res.setHeader('Access-Controll-Allow-Origin', '*');
-    res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-    res.setHeader('Access-Controll-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
+app.use(cors());
 
+app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);
 
 mongoose
