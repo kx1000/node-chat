@@ -1,10 +1,16 @@
 <template>
   <div>
-    chat
-    {{ user.name }}
-    {{ user.email }}
+    <div>
+      {{ user.name }}
+      {{ user.email }}
+    </div>
+    <div>
+      <form v-on:submit.prevent="sendMessage">
+        <input v-model="message" type="text">
+      </form>
+    </div>
     <div v-for="message in messages" v-bind:key="message._id">
-      [{{ message._id }}] {{ message.body }}
+      [{{ message._id }}] {{ message.content }}
     </div>
   </div>
 </template>
@@ -17,7 +23,17 @@ export default {
   name: "Chat",
   data() {
     return {
+      message: undefined,
       messages: [],
+    }
+  },
+  methods: {
+    sendMessage() {
+      messageApi
+          .create(this.message)
+          .then(() => {
+            this.message = undefined;
+          });
     }
   },
   created() {
