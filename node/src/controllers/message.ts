@@ -9,7 +9,8 @@ export const getMessages: RequestHandler = async (req, res, next) => {
 export const createMessage: RequestHandler = async (req, res, next) => {
     const content = req.body.content;
     const message = new Message({
-        content: content
+        content: content,
+        userId: req.user._id,
     });
     await message.save();
     res.status(201).json(message);

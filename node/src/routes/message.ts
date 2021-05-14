@@ -1,11 +1,11 @@
 import { getMessages, createMessage } from '../controllers/message';
 import {Router} from "express";
-import {checkAuthenticated} from "../utils/routeSecurity";
+import {assignUserByToken} from "../utils/routeSecurity";
 
 const router = Router();
 
-router.post('/', checkAuthenticated, createMessage);
+router.post('/', assignUserByToken, createMessage);
 
-router.get('/', checkAuthenticated, getMessages);
+router.get('/', assignUserByToken, getMessages);
 
 export default router;
