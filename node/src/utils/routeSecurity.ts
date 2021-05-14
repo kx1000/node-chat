@@ -11,10 +11,10 @@ declare global {
 
 export const checkAuthenticated: RequestHandler = async (req, res, next) => {
     try {
-        const token = req.cookies('token');
+        const token = req.cookies.token;
         req.user = await googleAuth.fetchPayload(token);
         next();
     } catch (err) {
-        res.send(401);
+        res.sendStatus(401);
     }
 }
