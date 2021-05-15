@@ -2,7 +2,9 @@ import { RequestHandler } from "express";
 import Message from "../models/message";
 
 export const getMessages: RequestHandler = async (req, res, next) => {
-    const messages = await Message.find();
+    const messages = await Message
+        .find()
+        .populate('userId');
     res.status(200).json(messages);
 };
 

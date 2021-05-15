@@ -10,7 +10,7 @@
       </form>
     </div>
     <div v-for="message in messages" v-bind:key="message._id">
-      [{{ message._id }}] {{ message.content }}
+      <b>{{ message.userId.name }}</b> ({{ message.userId.email }}): {{ message.content }}
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
   created() {
     messageApi.fetchAll().then(res => {
       this.messages = res.data;
+      console.log(this.messages);
     });
   },
   computed: {
