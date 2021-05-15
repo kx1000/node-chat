@@ -1,5 +1,5 @@
 import {RequestHandler} from "express";
-import googleAuth from "./googleAuth";
+import googleAuth from "../utils/googleAuth";
 import User from '../models/user';
 
 declare global {

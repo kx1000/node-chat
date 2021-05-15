@@ -1,6 +1,6 @@
 import { getMessages, createMessage } from '../controllers/message';
 import {Router} from "express";
-import {assignUserByToken} from "../utils/routeSecurity";
+import {assignUserByToken} from "../middleware/routeSecurity";
 
 const router = Router();
 
