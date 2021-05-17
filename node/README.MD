@@ -1,4 +1,8 @@
 ```
+cp .env.example .env
+```
+
+```
 docker build -t node-chat .
 ```
 

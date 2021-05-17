@@ -26,6 +26,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Docker
 
 ```
+cp .env .env.local
+```
+
+```
 docker build -t vue-chat .
 ```
 
