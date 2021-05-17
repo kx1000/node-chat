@@ -23,7 +23,10 @@ app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);
 
 mongoose
-    .connect(process.env.MONGO_URI as string, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGO_URI as string, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(result => {
         app.listen(process.env.PORT, () => {
             console.log(`Started: http://localhost:${process.env.PORT}`);
