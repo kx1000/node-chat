@@ -22,3 +22,13 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Docker
+
+```
+docker build -t vue-chat .
+```
+
+```
+docker run -it -p 8080:8080 vue-chat
+```
