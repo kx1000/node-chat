@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  node:
+    container_name: node-chat
+    build:
+      context: ./node
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./node:/app
+    command: npm run start
