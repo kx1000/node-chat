@@ -1,12 +1,20 @@
 version: '3'
 
 services:
-  node:
+  server:
     container_name: node-chat
     build:
       context: ./node
     ports:
-      - '8000:8000'
+      - 8000:8000
     volumes:
       - ./node:/app
     command: npm run start
+  client:
+    build:
+      context: ./vue
+    ports:
+      - 8080:8080
+    volumes:
+      - ./vue:/app
+    command: http-server dist
