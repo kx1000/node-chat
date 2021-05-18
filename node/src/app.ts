@@ -6,8 +6,8 @@ import userRoutes from "./routes/user";
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { Server } from 'socket.io';
 import corsOptions from "./utils/corsOptions";
+import socket from "./utils/socket";
 
 dotenv.config();
 const app = express();
@@ -31,10 +31,7 @@ mongoose
         const server = app.listen(process.env.PORT, () => {
             console.log(`Started: http://localhost:${process.env.PORT}`);
         });
-        const io = new Server(server, {
-            cors: corsOptions,
-            allowEIO3: true
-        });
+        const io = socket.init(server);
         io.on('connect', socket => {
             console.log(`Connected`);
         })
