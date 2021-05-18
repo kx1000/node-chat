@@ -10,7 +10,7 @@
       </form>
     </div>
     <div v-for="message in messages" v-bind:key="message._id">
-      <b>{{ message.userId.name }}</b> ({{ message.userId.email }}): {{ message.content }}
+      [{{ message.createdAt }}]<b>{{ message.userId.name }}</b> ({{ message.userId.email }}): {{ message.content }}
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   name: "Chat",
   sockets: {
     postMessage: function (data) {
-      this.messages.push(data);
+      this.messages.unshift(data);
     }
   },
   data() {
