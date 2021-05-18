@@ -22,11 +22,8 @@ import messageApi from "@/api/messageApi";
 export default {
   name: "Chat",
   sockets: {
-    connect: function () {
-      console.log('socket connected')
-    },
-    customEmit: function (data) {
-      console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)', data)
+    postMessage: function (data) {
+      this.messages.push(data);
     }
   },
   data() {
@@ -47,7 +44,6 @@ export default {
   created() {
     messageApi.fetchAll().then(res => {
       this.messages = res.data;
-      console.log(this.messages);
     });
   },
   computed: {

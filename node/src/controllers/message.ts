@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import Message from "../models/message";
+import socket from "../utils/socket";
 
 export const getMessages: RequestHandler = async (req, res, next) => {
     const messages = await Message
@@ -15,5 +16,9 @@ export const createMessage: RequestHandler = async (req, res, next) => {
         userId: req.user._id,
     });
     await message.save();
+    socket.getIO().emit('postMessage', {
+        content: content,
+        userId: req.user,
+    })
     res.status(201).json(message);
 };
