@@ -10,7 +10,7 @@
       </form>
     </div>
     <div v-for="message in messages" v-bind:key="message._id">
-      <b>{{ message.userId.name }}</b> ({{ message.userId.email }}): {{ message.content }}
+      [{{ message.createdAt }}]<b>{{ message.userId.name }}</b> ({{ message.userId.email }}): {{ message.content }}
     </div>
   </div>
 </template>
@@ -21,6 +21,11 @@ import messageApi from "@/api/messageApi";
 
 export default {
   name: "Chat",
+  sockets: {
+    postMessage: function (data) {
+      this.messages.unshift(data);
+    }
+  },
   data() {
     return {
       message: undefined,
@@ -39,7 +44,6 @@ export default {
   created() {
     messageApi.fetchAll().then(res => {
       this.messages = res.data;
-      console.log(this.messages);
     });
   },
   computed: {
