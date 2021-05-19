@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import {routes} from "./routes";
 import Vuex from 'vuex'
 import store from "@/store";
+import VueSocketIO from 'vue-socket.io';
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -30,6 +31,16 @@ axios.interceptors.response.use(response => {
 });
 
 Vue.config.productionTip = false
+
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: process.env.VUE_APP_BACKEND_API_URL,
+  vuex: {
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
+  },
+}));
 
 new Vue({
   router,
