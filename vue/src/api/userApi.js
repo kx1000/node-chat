@@ -10,5 +10,8 @@ export default {
     },
     logout() {
         return axios.post(apiBaseUrl + '/users/logout');
+    },
+    fetchCurrentUser() {
+        return axios.get(apiBaseUrl + '/users/current');
     }
 }

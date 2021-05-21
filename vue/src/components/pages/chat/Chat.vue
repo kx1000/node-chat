@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import messageApi from "@/api/messageApi";
 import userApi from "@/api/userApi";
 
@@ -35,6 +35,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+        'fetchCurrentUser'
+    ]),
     sendMessage() {
       messageApi
           .create(this.message)
@@ -52,6 +55,10 @@ export default {
     messageApi.fetchAll().then(res => {
       this.messages = res.data;
     });
+
+    if (0 === Object.keys(this.user).length) {
+      this.fetchCurrentUser();
+    }
   },
   computed: {
     ...mapState([
