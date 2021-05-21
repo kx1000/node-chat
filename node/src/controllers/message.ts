@@ -1,8 +1,8 @@
-import { RequestHandler } from "express";
+import express, { RequestHandler } from "express";
 import Message from "../models/message";
 import socket from "../utils/socket";
 
-export const getMessages: RequestHandler = async (req, res, next) => {
+export const getMessages: RequestHandler = async (req: express.Request, res: express.Response) => {
     const messages = await Message
         .find()
         .sort([['createdAt', -1]])
@@ -10,7 +10,7 @@ export const getMessages: RequestHandler = async (req, res, next) => {
     res.status(200).json(messages);
 };
 
-export const createMessage: RequestHandler = async (req, res, next) => {
+export const createMessage: RequestHandler = async (req: express.Request, res: express.Response) => {
     const content = req.body.content;
     const message = new Message({
         content: content,

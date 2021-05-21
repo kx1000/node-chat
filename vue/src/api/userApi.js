@@ -7,5 +7,8 @@ export default {
         return axios.post(apiBaseUrl + '/users/login', {
             token: token,
         });
+    },
+    logout() {
+        return axios.post(apiBaseUrl + '/users/logout');
     }
 }

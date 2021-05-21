@@ -1,10 +1,7 @@
 <template>
   <div>
-    <button v-if="!isSignIn" @click="signIn">
+    <button @click="signIn">
       Sign In
-    </button>
-    <button v-else @click="signOut">
-      Sign Out
     </button>
   </div>
 </template>
@@ -15,11 +12,6 @@ import {mapMutations} from "vuex";
 
 export default {
   name: "Login",
-  data() {
-    return {
-      isSignIn: false,
-    }
-  },
   methods: {
     ...mapMutations([
         'SET_USER'
@@ -36,15 +28,6 @@ export default {
         console.log('Error: ', err);
       }
     },
-    async signOut() {
-      const response = await this.$gAuth.signOut();
-      // todo request to node
-      console.log(response);
-    },
   },
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -3,6 +3,7 @@
     <div>
       {{ user.name }}
       {{ user.email }}
+      <button @click="signOut">sign out</button>
     </div>
     <div>
       <form v-on:submit.prevent="sendMessage">
@@ -18,6 +19,7 @@
 <script>
 import {mapState} from "vuex";
 import messageApi from "@/api/messageApi";
+import userApi from "@/api/userApi";
 
 export default {
   name: "Chat",
@@ -39,6 +41,11 @@ export default {
           .then(() => {
             this.message = undefined;
           });
+    },
+    async signOut() {
+      await this.$gAuth.signOut();
+      await userApi.logout();
+      await this.$router.push({name: 'login'});
     }
   },
   created() {
