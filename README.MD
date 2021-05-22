@@ -1,4 +1,12 @@
-## Dev running
+## Description
+
+Simple chat app built with node and vue. My programming sandbox to test new syntax.
+
+## Google OAuth client id
+
+https://console.cloud.google.com/apis/credentials
+
+## Running dev environment
 
 1. Edit server env
 ```
@@ -27,4 +35,4 @@ Dev front (8080)
 npm --prefix vue run serve
 ```
 
-(db from atlas)
+(db from e.g. atlas)
