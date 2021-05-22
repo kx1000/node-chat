@@ -19,6 +19,7 @@ Vue.use(GAuth, {
 const router = new VueRouter({routes});
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.VUE_APP_BACKEND_API_URL;
 axios.interceptors.response.use(response => {
   return response;
 }, error => {
