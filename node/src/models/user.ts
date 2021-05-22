@@ -18,4 +18,4 @@ export interface UserDocument extends mongoose.Document {
     email: string,
 }
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model<UserDocument>('User', userSchema);

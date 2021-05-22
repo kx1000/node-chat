@@ -2,7 +2,7 @@ import * as mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const messageSchema = new Schema({
+const messageSchema = new Schema<MessageDocument>({
     content: {
         type: String,
         required: true,
@@ -18,4 +18,10 @@ const messageSchema = new Schema({
     }
 });
 
-export default mongoose.model('Message', messageSchema);
+export interface MessageDocument extends mongoose.Document {
+    content: string;
+    userId: mongoose.Types.ObjectId;
+    createdAt: Date,
+}
+
+export default mongoose.model<MessageDocument>('Message', messageSchema);

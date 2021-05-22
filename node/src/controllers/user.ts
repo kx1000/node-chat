@@ -8,7 +8,7 @@ export const login: RequestHandler = (req: express.Request, res: express.Respons
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const token = req.body.token;
+    const token: string = req.body.token;
     googleAuth
         .fetchPayload(token)
         .then(payload => {

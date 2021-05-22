@@ -1,9 +1,9 @@
 import express, { RequestHandler } from "express";
-import Message from "../models/message";
+import Message, {MessageDocument} from "../models/message";
 import socket from "../utils/socket";
 
 export const getMessages: RequestHandler = async (req: express.Request, res: express.Response) => {
-    const messages = await Message
+    const messages: Array<MessageDocument> = await Message
         .find()
         .sort([['createdAt', -1]])
         .populate('userId');
@@ -15,8 +15,8 @@ export const createMessage: RequestHandler = async (req: express.Request, res: e
         throw new Error('Empty User in Request');
     }
 
-    const content = req.body.content;
-    const message = new Message({
+    const content: string = req.body.content;
+    const message: MessageDocument = new Message({
         content: content,
         userId: req.user._id,
         createdAt: new Date(),

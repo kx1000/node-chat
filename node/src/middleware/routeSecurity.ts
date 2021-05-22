@@ -15,7 +15,7 @@ export const assignUserByToken: RequestHandler = async (req: express.Request, re
         const token = req.cookies.token;
         const googleUser = await googleAuth.fetchPayload(token);
 
-        const existingUser: UserDocument = await User.findOne({email: googleUser.email}).exec();
+        const existingUser: UserDocument | null = await User.findOne({email: googleUser.email}).exec();
         if (existingUser) {
             req.user = existingUser;
             return next();
