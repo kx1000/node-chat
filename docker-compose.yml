@@ -1,35 +1,31 @@
 version: '3'
-
 services:
-
   database:
     container_name: mongo-chat
-    image: mongo:4
+    image: 'mongo:4'
     ports:
-      - 27017:27017
+      - '27017:27017'
     volumes:
-      - ./dbdata:/data/db
-
+      - './dbdata:/data/db'
   server:
     container_name: node-chat
     build:
       context: ./node
     ports:
-      - 8000:8000
+      - '8000:8000'
     volumes:
-      - ./node:/app
+      - './node:/app'
     depends_on:
       - database
     command: npm run start
-
   client:
     container_name: vue-chat
     build:
       context: ./vue
     ports:
-      - 8080:8080
+      - '8080:8080'
     volumes:
-      - ./vue:/app
+      - './vue:/app'
     command: npm run serve
     links:
       - database
