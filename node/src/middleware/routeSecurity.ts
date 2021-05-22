@@ -1,21 +1,21 @@
-import {RequestHandler} from "express";
+import express, {RequestHandler} from "express";
 import googleAuth from "../utils/googleAuth";
-import User from '../models/user';
+import User, {UserDocument} from '../models/user';
 
 declare global {
     namespace Express {
         interface Request {
-            user?: any,
+            user?: UserDocument,
         }
     }
 }
 
-export const assignUserByToken: RequestHandler = async (req, res, next) => {
+export const assignUserByToken: RequestHandler = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const token = req.cookies.token;
         const googleUser = await googleAuth.fetchPayload(token);
 
-        const existingUser = await User.findOne({email: googleUser.email}).exec();
+        const existingUser: UserDocument = await User.findOne({email: googleUser.email}).exec();
         if (existingUser) {
             req.user = existingUser;
             return next();

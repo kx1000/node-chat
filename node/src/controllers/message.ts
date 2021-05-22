@@ -11,6 +11,10 @@ export const getMessages: RequestHandler = async (req: express.Request, res: exp
 };
 
 export const createMessage: RequestHandler = async (req: express.Request, res: express.Response) => {
+    if (undefined === req.user) {
+        throw new Error('Empty User in Request');
+    }
+
     const content = req.body.content;
     const message = new Message({
         content: content,
