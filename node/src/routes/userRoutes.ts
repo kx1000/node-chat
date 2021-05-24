@@ -1,4 +1,4 @@
-import {current, login, logout} from '../controllers/user';
+import {current, login, logout} from '../controllers/userController';
 import {Router} from "express";
 import {body} from 'express-validator';
 import {assignUserByToken} from "../middleware/routeSecurity";

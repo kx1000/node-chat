@@ -1,4 +1,4 @@
-import { getMessages, createMessage } from '../controllers/message';
+import { getMessages, createMessage } from '../controllers/messageController';
 import {Router} from "express";
 import {assignUserByToken} from "../middleware/routeSecurity";
 

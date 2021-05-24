@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import messageRoutes from "./routes/message";
-import userRoutes from "./routes/user";
+import messageRoutes from "./routes/messageRoutes";
+import userRoutes from "./routes/userRoutes";
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';

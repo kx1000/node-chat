@@ -1,6 +1,6 @@
 import express, {RequestHandler} from "express";
 import googleAuth from "../utils/googleAuth";
-import User, {UserDocument} from '../models/user';
+import User, {UserDocument} from '../models/userModels';
 
 declare global {
     namespace Express {

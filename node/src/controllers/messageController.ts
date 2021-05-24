@@ -1,5 +1,5 @@
 import express, { RequestHandler } from "express";
-import Message, {MessageDocument} from "../models/message";
+import Message, {MessageDocument} from "../models/messageModels";
 import socket from "../utils/socket";
 
 export const getMessages: RequestHandler = async (req: express.Request, res: express.Response) => {
