@@ -25,6 +25,7 @@ app.use('/messages', messageRoutes);
 mongoose
     .connect(process.env.MONGO_URI as string, {
         useNewUrlParser: true,
+        useCreateIndex: true,
         useUnifiedTopology: true,
     })
     .then(result => {

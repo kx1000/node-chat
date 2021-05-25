@@ -1,3 +1,13 @@
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+  "name": "Kacper Rogula",
+  "email": "kacper@gmail.com",
+  "plainPassword": "test123"
+}
+
+###
 POST http://localhost:8000/users/logout
 Content-Type: application/json
 
