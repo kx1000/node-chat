@@ -2,8 +2,15 @@ import express, {RequestHandler} from "express";
 import User, {UserDocument} from '../models/userModels';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import {validationResult} from "express-validator";
+import googleAuth from "../utils/googleAuth";
 
 export const jwtLogin: RequestHandler = async (req: express.Request, res: express.Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const email = req.body.email;
     const plainPassword = req.body.plainPassword;
     try {
@@ -31,4 +38,27 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
     } catch (err) {
         return res.sendStatus(500);
     }
-}
+};
+
+export const googleLogin: RequestHandler = (req: express.Request, res: express.Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const token: string = req.body.token;
+    googleAuth
+        .fetchPayload(token)
+        .then(payload => {
+            res.cookie('token', token, { httpOnly: true });
+            res.status(200).json({
+                name: payload.name,
+                email: payload.email,
+            });
+        });
+};
+
+export const logout: RequestHandler = (req: express.Request, res: express.Response) => {
+    res.clearCookie('token');
+    res.sendStatus(200);
+};
