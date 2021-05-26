@@ -1,3 +1,12 @@
+POST http://localhost:8000/security/jwt-login
+Content-Type: application/json
+
+{
+  "email": "kacper@gmail.com",
+  "plainPassword": "test123"
+}
+
+###
 POST http://localhost:8000/users
 Content-Type: application/json
 
