@@ -19,7 +19,7 @@ router.post(
 );
 
 router.post(
-    '/auth',
+    '/google-login',
     body('token')
         .isLength({
             min: 1000,

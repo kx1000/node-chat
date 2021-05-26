@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 import messageApi from "@/api/messageApi";
 import securityApi from "@/api/securityApi";
 
@@ -35,9 +35,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-        'fetchCurrentUser'
-    ]),
+    ...mapActions([ 'fetchCurrentUser' ]),
+    ...mapMutations([ 'SET_USER' ]),
     sendMessage() {
       messageApi
           .create(this.message)
@@ -46,8 +45,13 @@ export default {
           });
     },
     async signOut() {
-      await this.$gAuth.signOut();
+      try {
+        await this.$gAuth.signOut();
+      } catch (err) {
+        console.log(err);
+      }
       await securityApi.logout();
+      await this.SET_USER({});
       await this.$router.push({name: 'login'});
     }
   },

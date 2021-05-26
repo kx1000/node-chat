@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import userApi from "@/api/userApi";
 import {mapMutations} from "vuex";
+import securityApi from "@/api/securityApi";
 
 export default {
   name: "GoogleAuthButton",
@@ -20,7 +20,7 @@ export default {
       try {
         const googleUser = await this.$gAuth.signIn();
         const token = googleUser.getAuthResponse().id_token;
-        const response = await userApi.loginByToken(token);
+        const response = await securityApi.googleLoginByToken(token);
         const user = response.data;
         this.SET_USER(user);
         await this.$router.push({name: 'chat'});
