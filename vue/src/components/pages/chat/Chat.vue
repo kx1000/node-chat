@@ -19,7 +19,7 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import messageApi from "@/api/messageApi";
-import userApi from "@/api/userApi";
+import securityApi from "@/api/securityApi";
 
 export default {
   name: "Chat",
@@ -47,7 +47,7 @@ export default {
     },
     async signOut() {
       await this.$gAuth.signOut();
-      await userApi.logout();
+      await securityApi.logout();
       await this.$router.push({name: 'login'});
     }
   },
