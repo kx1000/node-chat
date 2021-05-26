@@ -6,7 +6,7 @@ import {assignUserByToken} from "../middleware/routeSecurity";
 const router = Router();
 
 router.post(
-    '/login',
+    '/auth',
     body('token')
         .isLength({
             min: 1000,

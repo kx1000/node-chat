@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="signIn">
-      Sign In
+      Google Sign In
     </button>
   </div>
 </template>
@@ -11,7 +11,7 @@ import userApi from "@/api/userApi";
 import {mapMutations} from "vuex";
 
 export default {
-  name: "Login",
+  name: "GoogleAuthButton",
   methods: {
     ...mapMutations([
         'SET_USER'

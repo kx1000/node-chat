@@ -1,4 +1,4 @@
-import Login from "@/components/pages/Login";
+import Login from "@/components/pages/auth/Login";
 import Chat from "@/components/pages/chat/Chat";
 
 export const routes = [
