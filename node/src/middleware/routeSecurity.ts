@@ -1,6 +1,6 @@
 import express, {RequestHandler} from "express";
-import googleAuth from "../utils/googleAuth";
 import User, {UserDocument} from '../models/userModels';
+import jwtCookie from "../utils/jwtCookie";
 
 declare global {
     namespace Express {
@@ -12,22 +12,13 @@ declare global {
 
 export const assignUserByToken: RequestHandler = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-        const token = req.cookies.token;
-        const googleUser = await googleAuth.fetchPayload(token);
+        const userDataFromToken = jwtCookie.decodeUserFromToken(req);
 
-        const existingUser: UserDocument | null = await User.findOne({email: googleUser.email}).exec();
-        if (existingUser) {
-            req.user = existingUser;
+        const loadedUser: UserDocument | null = await User.findOne({email: userDataFromToken.email}).exec();
+        if (loadedUser) {
+            req.user = loadedUser;
             return next();
         }
-
-        const newUser = new User({
-            name: googleUser.name,
-            email: googleUser.email,
-        });
-
-        req.user = await newUser.save();
-        return next();
     } catch (err) {
         res.sendStatus(401);
     }

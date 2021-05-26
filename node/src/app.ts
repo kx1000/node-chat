@@ -8,6 +8,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import corsOptions from "./utils/corsOptions";
 import socket from "./utils/socket";
+import securityRoutes from "./routes/securityRoutes";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 
 // Routes
+app.use('/security', securityRoutes);
 app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);
 

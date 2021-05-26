@@ -1,17 +1,17 @@
 <template>
   <div>
     <button @click="signIn">
-      Sign In
+      Google Sign In
     </button>
   </div>
 </template>
 
 <script>
-import userApi from "@/api/userApi";
 import {mapMutations} from "vuex";
+import securityApi from "@/api/securityApi";
 
 export default {
-  name: "Login",
+  name: "GoogleAuthButton",
   methods: {
     ...mapMutations([
         'SET_USER'
@@ -20,7 +20,7 @@ export default {
       try {
         const googleUser = await this.$gAuth.signIn();
         const token = googleUser.getAuthResponse().id_token;
-        const response = await userApi.loginByToken(token);
+        const response = await securityApi.googleLoginByToken(token);
         const user = response.data;
         this.SET_USER(user);
         await this.$router.push({name: 'chat'});

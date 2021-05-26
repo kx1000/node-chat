@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => {
   return response;
 }, error => {
   if (error.response.status === 401 && router.currentRoute.name !== 'login') {
-    console.log('Required login');
+    console.log('Required auth');
     router.push({name: 'login'});
   }
 
