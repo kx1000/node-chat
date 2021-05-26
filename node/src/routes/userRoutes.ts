@@ -25,8 +25,8 @@ router.post(
         body('email').isEmail()
             .withMessage('Invalid email.'),
         body('plainPassword')
-            .isString()
-            .withMessage('Password must be a string.')
+            .exists()
+            .withMessage('Password cannot be blank.')
             .isLength({
                 min: 6,
                 max: 32,
