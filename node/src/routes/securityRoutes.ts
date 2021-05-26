@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {googleLogin, jwtLogin, logout} from "../controllers/securityController";
 import {body} from "express-validator";
+import bodyValidationExecutor from "../middleware/bodyValidationExecutor";
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.post(
                 max: 32,
             })
     ],
+    bodyValidationExecutor.validate,
     jwtLogin
 );
 
@@ -25,6 +27,7 @@ router.post(
             min: 1000,
             max: 1300,
         }),
+    bodyValidationExecutor.validate,
     googleLogin
 );
 

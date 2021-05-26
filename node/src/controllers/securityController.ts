@@ -1,16 +1,10 @@
 import express, {RequestHandler} from "express";
 import User, {UserDocument} from '../models/userModels';
 import bcrypt from 'bcryptjs';
-import {validationResult} from "express-validator";
 import googleAuth from "../utils/googleAuth";
 import jwtCookie from "../utils/jwtCookie";
 
 export const jwtLogin: RequestHandler = async (req: express.Request, res: express.Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
         const loadedUser: UserDocument | null = await User.findOne({ email: req.body.email });
 
@@ -35,11 +29,6 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
 };
 
 export const googleLogin: RequestHandler = async (req: express.Request, res: express.Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     const googleUser = await googleAuth.fetchPayload(req.body.token);
     const loadedUser: UserDocument | null = await User.findOne({email: googleUser.email}).exec();
     if (loadedUser) {

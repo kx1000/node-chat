@@ -2,6 +2,7 @@ import {create, current} from '../controllers/userController';
 import {Router} from "express";
 import {body} from 'express-validator';
 import {assignUserByToken} from "../middleware/routeSecurity";
+import bodyValidationExecutor from "../middleware/bodyValidationExecutor";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.post(
             })
             .withMessage('Password length must be between 6 and 32 chars.')
     ],
+    bodyValidationExecutor.validate,
     create
 );
 

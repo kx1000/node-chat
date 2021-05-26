@@ -1,5 +1,4 @@
 import express, {RequestHandler} from "express";
-import {validationResult} from "express-validator";
 import User from "../models/userModels";
 import bcrypt from 'bcryptjs';
 import {Error} from "mongoose";
@@ -10,11 +9,6 @@ export const current: RequestHandler = (req: express.Request, res: express.Respo
 };
 
 export const create: RequestHandler = async (req: express.Request, res: express.Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
         return res.status(201).send(
             await User.create({
