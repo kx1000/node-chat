@@ -11,10 +11,8 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const email = req.body.email;
-    const plainPassword = req.body.plainPassword;
     try {
-        const loadedUser: UserDocument | null = await User.findOne({ email: email });
+        const loadedUser: UserDocument | null = await User.findOne({ email: req.body.email });
 
         if (null === loadedUser) {
             return res.status(404).json({
@@ -22,18 +20,22 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
             });
         } else if (
             undefined === loadedUser.password
-            || !await bcrypt.compare(plainPassword, loadedUser.password)
+            || !await bcrypt.compare(req.body.plainPassword, loadedUser.password)
         ) {
             return res.status(401).json({
                 message: 'Email and password do not match.',
             });
         }
 
-        const token = jwt.sign({
-            email: loadedUser.email,
-            userId: loadedUser._id.toString()
-        }, 'secretStringToEnv');
+        console.log(process.env.SECRET);
 
+        const token = jwt.sign({
+            userId: loadedUser._id.toString(),
+            email: loadedUser.email,
+            name: loadedUser.name,
+        }, process.env.SECRET as string);
+
+        res.cookie('token', token, { httpOnly: true });
         return res.json({ token: token });
     } catch (err) {
         return res.sendStatus(500);
@@ -62,3 +64,7 @@ export const logout: RequestHandler = (req: express.Request, res: express.Respon
     res.clearCookie('token');
     res.sendStatus(200);
 };
+
+const authenticateUser = (user: UserDocument) => {
+
+}

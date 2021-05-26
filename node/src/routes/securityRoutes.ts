@@ -6,11 +6,15 @@ const router = Router();
 
 router.post(
     '/jwt-login',
-    body('token')
-        .isLength({
-            min: 300,
-            max: 1300,
-        }),
+    [
+        body('email')
+            .isEmail(),
+        body('plainPassword')
+            .isLength({
+                min: 6,
+                max: 32,
+            })
+    ],
     jwtLogin
 );
 
