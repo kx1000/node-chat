@@ -10,14 +10,16 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
         const loadedUser: UserDocument | null = await User.findOne({ email: email });
 
         if (null === loadedUser) {
-            res.sendStatus(404);
-            return;
+            return res.status(404).json({
+                message: 'Email not found.',
+            });
         } else if (
             undefined === loadedUser.password
             || !await bcrypt.compare(plainPassword, loadedUser.password)
         ) {
-            res.sendStatus(401);
-            return;
+            return res.status(401).json({
+                message: 'Email and password do not match.',
+            });
         }
 
         const token = jwt.sign({
@@ -27,6 +29,6 @@ export const jwtLogin: RequestHandler = async (req: express.Request, res: expres
 
         return res.json({ token: token });
     } catch (err) {
-        res.sendStatus(500);
+        return res.sendStatus(500);
     }
 }

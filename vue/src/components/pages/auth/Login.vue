@@ -26,6 +26,7 @@
 
 <script>
 import GoogleAuthButton from "@/components/pages/auth/GoogleAuthButton";
+import securityApi from "@/api/securityApi";
 
 export default {
   name: "Login",
@@ -34,13 +35,21 @@ export default {
   },
   data() {
     return {
+      error: undefined,
       email: '',
       password: '',
     }
   },
   methods: {
     login() {
-
+      this.error = undefined;
+      securityApi.jwtLogin(this.email, this.password)
+          .then(() => {
+            this.$router.push({name: 'chat'});
+          })
+          .catch((error) => {
+            this.error = error.response.data.message;
+          })
     }
   }
 }
